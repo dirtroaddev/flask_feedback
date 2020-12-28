@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+
+<h1>{{user.username}}</h1>
+<h4>{{user.email}}</h4>
+<h4>{{user.first_name}}</h4>
+<h4>{{user.last_name}}</h4>
+
+<h2>Feedback:</h2>
+{% for feed in user.usefeed %}
+    <p>
+        {{feed.title}}
+        {{feed.content}}
+        <form action="/users/{{feed.id}}/feedback/delete">
+            <button>X</button>
+        </form>
+        <form action="/users/{{feed.id}}/feedback/edit">
+        <button>EDIT</button>
+        </form>
+    </p>
+
+{% endfor %}
+<form action="/users/{{user.username}}/delete" method="post">
+    <button>DELETE</button>
+</form>
+<a href="/users/{{user.username}}/feedback/add">Add Feedback</a>
+
+{% endblock %}
